@@ -16,7 +16,7 @@ public class AddressMapper {
             .build();
     }
 
-    public static AddressResponse tnResponse(Address address) {
+    public static AddressResponse toResponse(Address address) {
         return AddressResponse.builder()
             .id(address.getId())
             .houseNo(address.getHouseNo())
