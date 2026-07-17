@@ -49,8 +49,10 @@ public class Product {
     private Category category;
 
     @OneToMany(mappedBy = "product")
+    @Builder.Default
     private List<CartItem> cartItems = new ArrayList<>();
 
     @OneToMany(mappedBy = "product")
+    @Builder.Default
     private List<OrderItem> orderItems = new ArrayList<>();
 }
