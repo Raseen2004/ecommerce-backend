@@ -44,6 +44,7 @@ public class Order {
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
+    @Builder.Default
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @OneToOne(

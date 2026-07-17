@@ -6,7 +6,7 @@ import dev.raseen2004.e_commerce_learning.dto.request.AddressRequest;
 import dev.raseen2004.e_commerce_learning.dto.response.AddressResponse;
 
 public interface AddressService {
-    AddressResponse addAddress(AddressRequest request);
+    AddressResponse addAddress(Long id, AddressRequest request);
 
     AddressResponse getAddressById(Long id);
 
@@ -14,5 +14,5 @@ public interface AddressService {
 
     AddressResponse updateAddress(Long id, AddressRequest request);
 
-    void deleteAdress(Long id);
+    void deleteAddress(Long id);
 }

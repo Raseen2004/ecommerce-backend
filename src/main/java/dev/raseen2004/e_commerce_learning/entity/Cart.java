@@ -43,6 +43,7 @@ public class Cart {
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
+    @Builder.Default
     private List<CartItem> cartItems = new ArrayList<>();
     
 }
