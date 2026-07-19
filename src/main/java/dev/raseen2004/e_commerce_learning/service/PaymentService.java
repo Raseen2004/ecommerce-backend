@@ -6,4 +6,6 @@ public interface PaymentService {
     PaymentResponse getPaymentById(Long id);
 
     PaymentResponse getPaymentByOrderId(Long orderId);
+
+    PaymentResponse processPayment(Long paymentId);
 }
