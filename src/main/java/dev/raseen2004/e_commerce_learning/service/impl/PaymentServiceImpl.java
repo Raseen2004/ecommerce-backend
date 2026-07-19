@@ -13,28 +13,50 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional
 public class PaymentServiceImpl implements PaymentService {
-    
+
     private final PaymentRepository paymentRepository;
 
     @Override
-    public PaymentResponse getPaymentId(Long id) {
+    @Transactional(readOnly = true)
+    public PaymentResponse getPaymentById(Long id) {
         Payment payment = paymentRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Payment not found with id: "+ id));
+                .orElseThrow(() -> new ResourceNotFoundException("Payment not found with id: " + id));
 
         return PaymentMapper.toResponse(payment);
     }
 
     @Override
-    public PaymentResponse getPaymentByOderId(Long orderId) {
+    @Transactional(readOnly = true)
+    public PaymentResponse getPaymentByOrderId(Long orderId) {
         Payment payment = paymentRepository
-            .findByOrderId(orderId)
-            .orElseThrow(() -> 
-                new ResourceNotFoundException("Payment not found for order id: "+orderId)
-            );
+                .findByOrderId(orderId)
+                .orElseThrow(() -> new ResourceNotFoundException("Payment not found for order id: " + orderId));
 
         return PaymentMapper.toResponse(payment);
     }
-    
+
+    @Override
+    public PaymentResponse processPayment(Long paymentId) {
+        Payment payment = paymentRepository.findById(paymentId)
+            .orElseThrow(() -> 
+                new ResourceNotFoundException("Payment not found with id: "+paymentId)
+            );
+
+        if("COMPLETED".equalsIgnoreCase(payment.getPaymentStatus())) {
+            throw new IllegalArgumentException(
+                "Payment is already completed"
+            );
+        }
+
+        payment.setPaymentStatus("COMPLETED");
+
+        payment.getOrder().setStatus("CONFIRMED");
+
+        Payment savedPayment = paymentRepository.save(payment);
+
+        return PaymentMapper.toResponse(savedPayment);
+    }
+
 }

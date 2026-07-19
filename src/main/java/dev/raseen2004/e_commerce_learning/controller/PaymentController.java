@@ -3,6 +3,7 @@ package dev.raseen2004.e_commerce_learning.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,6 +32,13 @@ public class PaymentController {
 
         return ResponseEntity.ok(
                 paymentService.getPaymentByOrderId(orderId)
+        );
+    }
+
+    @PostMapping("/payments/{paymentId}/process")
+    public ResponseEntity<PaymentResponse> processPayment(@PathVariable Long paymentId) {
+        return ResponseEntity.ok(
+            paymentService.processPayment(paymentId)
         );
     }
 }
