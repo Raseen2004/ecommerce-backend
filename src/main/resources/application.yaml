@@ -4,8 +4,8 @@ spring:
 
   datasource:
     url: jdbc:postgresql://localhost:5432/e_commerce_learning
-    username: postgres
-    password: admin@123
+    username: your_username
+    password: your_password
     driver-class-name: org.postgresql.Driver
   
   jpa:
@@ -17,7 +17,7 @@ spring:
         format_sql: true
   
 jwt:
-  secret: CGMS7lX/0jC24qhLgpidRvYUyefblmC7tkswutzANDk=
+  secret: your_secret_key
   expiration: 86400000
   
 server:
